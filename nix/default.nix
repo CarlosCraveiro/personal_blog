@@ -13,9 +13,8 @@ let
 in pkgs.stdenv.mkDerivation {
     name = "${repo_name}";
     src = ./../.;
-    nativeBuildInputs = with pkgs; [hugo]; 
+    nativeBuildInputs = with pkgs; [ hugo git ]; 
     buildPhase = "
-        ls
         rm -df themes/blowfish
         ln ${blowfish} -sfT themes/blowfish
         hugo --gc --minify --baseURL /${repo_name}
