@@ -7,19 +7,21 @@
 
     outputs = { self, nixpkgs }:
     let
-        system = "x86_64-linux";
+        #system = "x86_64-linux";
+        forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ];
         pkgsFor = nixpkgs.legacyPackages;
     in
     {
-        # Configs the recipe for building the "package" which in case is my personal blog
-        packages.${system} = { 
-            default = pkgsFor.${system}.callPackage nix/default.nix { };
-        };
+       
+        packages = forAllSystems (system: {
+        default = pkgsFor.${system}.callPackage nix/default.nix { };
+       # vm = vmFor.${system}.config.system.build.vm;
+      });
         
-        # Configs the development shell
-        devShells.${system} = {
-            default = pkgsFor.${system}.callPackage nix/shell.nix { };
-        };
+        
+        devShells = forAllSystems (system: {
+        default = pkgsFor.${system}.callPackage nix/shell.nix { };
+      });
     };
 }
 
