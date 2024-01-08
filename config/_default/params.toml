@@ -1,0 +1,48 @@
+# config/_default/params.toml
+
+colorScheme = "fire"
+defaultAppearance = "dark"
+
+enableSearch = true
+enableCodeCopy = true
+
+mainSections = ["posts"]
+
+[footer]
+  showCopyright = true
+  showThemeAttribution = true
+  showAppearanceSwitcher = true
+  showScrollToTop = true
+  showRecent = true
+  showRecentItems = 3
+  showMoreLink = true
+
+[homepage]
+  layout = "profile" 
+  showRecent = true
+  showRecentItems = 5
+
+[list]
+  showBreadcrumbs = false
+  showSummary = true
+  showTableOfContents = false
+  groupByYear = false
+
+[article]
+  showDate = true
+  showAuthor = true
+  showDraftLabel = true
+  showHeadingAnchors = true
+  showPagination = true
+  invertPagination = false
+  showReadingTime = true
+  showTableOfContents = true
+  showTaxonomies = true 
+  showWordCount = false
+  showSummary = true
+  #showComment = true    # Not for now 
+  sharingLinks = [ "whatsapp", "linkedin", "twitter", "reddit", "facebook", "email" ]
+  showZenMode = true
+
+[taxonomy]
+  showTermCount = true

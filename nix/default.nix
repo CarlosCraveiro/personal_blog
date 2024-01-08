@@ -18,7 +18,7 @@ in pkgs.stdenv.mkDerivation {
         ls
         rm -df themes/blowfish
         ln ${blowfish} -sfT themes/blowfish
-        hugo --gc --minify --baseURL ${repo_name}
+        hugo --gc --minify --baseURL /${repo_name}
         ";
     
     installPhase = "cp -r public $out";

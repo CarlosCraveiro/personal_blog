@@ -1,0 +1,15 @@
+# config/_default/languages.en.toml
+
+title = "Carlos Craveiro Blog"
+
+[author]
+name = "Carlos Henrique Craveiro Aquino Veras"
+image = "img/author.jpg"
+headline = "ChatGPT, write a good headline for my blog."
+bio = "Undergrad Computer Engineer passionated for open tecnologies and currently researching control theory applied to robotics."
+links = [
+  { github = "https://github.com/CarlosCraveiro" }
+]
+
+[params]
+logo = "white-carnage2_withoutbg.png"

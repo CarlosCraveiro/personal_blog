@@ -1,8 +1,3 @@
-# My first home page
+## Brief description
 
-For now I'm just setting the infrastructure of the blog.
-
-But as soon I set everything up I'll start posting.
-
-## [Posts](./posts)
-- [First One](./posts/my-first-post/)
+Here I'll put a brief description about what exactaly is this blog about.

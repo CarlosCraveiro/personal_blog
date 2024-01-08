@@ -1,4 +1,2 @@
-baseURL = 'https://carloscraveiro.github.io/personal_blog/'
-languageCode = 'en-us'
-title = 'My New Hugo Site'
-theme = 'blowfish'
+baseURL = "https://carloscraveiro.github.io/personal_blog"
+languageCode = "en"
