@@ -42,14 +42,14 @@ let
     '';
     
     blog_new_post = pkgs.writeShellScriptBin "blog_new_post" '' 
-        git checkout main                   
-        git checkout -b ''${1}           
-        hugo new posts/''${1}            
-        echo "''${1}" > .current_post
+        git checkout main
+        git checkout -b ''${1}
+        hugo new posts/''${1}
 
     '';
 
     blog_post = pkgs.writeShellScriptBin "blog_post" '' 
+        export CURR_POST_DIR="$(pwd)/content/posts/$(git branch --show-current)"
         nvim $CURR_POST_DIR/index.md
     '';
     
@@ -84,7 +84,7 @@ in
         rm -df themes/blowfish
         ln ${blowfish} -sfT themes/blowfish
         
-        export CURR_POST_DIR="$(pwd)/content/posts/$(cat .current_post)"
+        export CURR_POST_DIR="$(pwd)/content/posts/$(git branch --show-current)"
         zsh
     '';
 })
