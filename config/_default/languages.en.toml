@@ -10,6 +10,7 @@ bio = "Undergrad Computer Engineer passionated for open tecnologies and currentl
 links = [
   { github = "https://github.com/CarlosCraveiro" }
 ]
+email = "carlos.craveiro@usp.br"
 
 [params]
 logo = "white-carnage2_withoutbg.png"
