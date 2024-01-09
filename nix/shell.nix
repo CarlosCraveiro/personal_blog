@@ -23,8 +23,9 @@ let
     blog_help = pkgs.writeShellScriptBin "blog_help" ''
      ${colors}
         echo -e $PURPLE"Ações possíveis:"$NC
-        echo -e "1. Subir a instancia local:        "$GREEN"blog_develop"$NC
-        echo -e "2. Matar a instancia local:        "$GREEN"blog_kill"$NC
+        echo -e "1. Subir e abrir instancia local:  "$GREEN"blog_develop"$NC
+        echo -e "2. Abrir a instancia local:        "$GREEN"blog_open"$NC
+        echo -e "3. Matar a instancia local:        "$GREEN"blog_kill"$NC
         echo -e ""
         echo -e "Outros comandos disponíveis:"
         echo -e "- Subir manualmente com o hugo:    "$YELLOW"hugo server -D"$NC
@@ -36,6 +37,10 @@ let
 
     blog_develop = pkgs.writeShellScriptBin "blog_develop" '' 
         hugo server -D &
+        xdg-open http://localhost:1313/${repo_name}/
+    '';
+    
+    blog_open = pkgs.writeShellScriptBin "blog_open" ''
         xdg-open http://localhost:1313/${repo_name}/
     '';
 
@@ -56,6 +61,7 @@ in
         blog_develop
         blog_kill
         blog_help
+        blog_open
 
     ] ++ (oa.nativeBuildInputs or []);
 
