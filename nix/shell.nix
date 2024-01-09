@@ -37,15 +37,22 @@ let
     '';   
 
     blog_develop = pkgs.writeShellScriptBin "blog_develop" '' 
-        hugo server -D &
+        hugo server --quiet -D &
         xdg-open http://localhost:1313/${repo_name}/
     '';
     
     blog_new_post = pkgs.writeShellScriptBin "blog_new_post" '' 
-        hugo new posts/''${1}
+        git checkout main                   
+        git checkout -b ''${1}           
+        hugo new posts/''${1}            
+        echo "''${1}" > .current_post
+
     '';
 
-
+    blog_post = pkgs.writeShellScriptBin "blog_post" '' 
+        nvim $CURR_POST_DIR/index.md
+    '';
+    
     blog_open = pkgs.writeShellScriptBin "blog_open" ''
         xdg-open http://localhost:1313/${repo_name}/
     '';
@@ -69,13 +76,15 @@ in
         blog_help
         blog_open
         blog_new_post
+        blog_post
 
     ] ++ (oa.nativeBuildInputs or []);
 
     shellHook = ''
         rm -df themes/blowfish
         ln ${blowfish} -sfT themes/blowfish
-
+        
+        export CURR_POST_DIR="$(pwd)/content/posts/$(cat .current_post)"
         zsh
     '';
 })
