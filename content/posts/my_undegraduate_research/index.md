@@ -6,5 +6,6 @@ categories: ["Scientific Initiation"]
 tags: ["robotics", "control"]
 ---
 
-## Aa
-b c d
+## Introduction
+
+My idea with this post is to talk about the research I'm currently engaged.
