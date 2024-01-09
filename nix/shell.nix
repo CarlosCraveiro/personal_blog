@@ -45,7 +45,8 @@ let
         git checkout main
         git checkout -b ''${1}
         hugo new posts/''${1}
-
+        git add .
+        git commit -m "Inits ''${1} post"
     '';
 
     blog_post = pkgs.writeShellScriptBin "blog_post" '' 
