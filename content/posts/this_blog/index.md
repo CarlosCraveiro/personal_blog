@@ -16,7 +16,7 @@ My idea with this post is to describe things that I find relevant about this blo
 
 I kind of talked about it a little in my confusing [previous post](../hello_world), but I think it's worth mentioning here too. 
 
-It all happened a few days ago when I finally got a break from college, after handing in the last project I needed to finish the semester. I've wanted to start producing content for the internet for a while now, but I've never gotten the traction to start. One morning I woke up specifically wanting to know how the **FLOSS&H** (*here I'm using **FLOSS&H** as Free and Open Source Software and Hardware, because I don't know a better acronym for it*) initiatives were going for modern computing trends, such as AI, personal assistants and etc..., but I didn't find anything that satisfied my curiosity. So as an act of indignation *fueled by copious amounts of free time* **I decided to finally become what you may consider a content creator!**
+It all happened a few days ago when I finally got a break from college, after handing in the last project I needed to finish the semester. I've wanted to start producing content for the internet for a while now, but I've never gotten the traction to start. One morning I woke up specifically wanting to know how the **FLOSS&H** (*here I'm using **FLOSS&H** as Free and Open Source Software and Hardware, because I don't know a better acronym for it*) initiatives were going for modern computing trends, such as AI, personal assistants and etc..., but I didn't find anything that satisfied my curiosity. So as an act of indignation *fueled by copious amounts of free time* **I decided to finally become what you may consider a content creator!** And why a blog? Well that's simple. I don't want to think about video editing for now. Just to focus on researching content and compiling it into something interesting. So a blog fits well with the purposes.
 
 In case you ask yourself:
 > Oh so he will soon make a post about those tendencies? 
@@ -30,4 +30,30 @@ So that's the short story, and here I am a content creator without any content a
 
 ## This Blog Design
 
+Now that I somehow explained what made me start this blog, let's discuss about the **design decisions** that I made.
+
+### Goals and Requirements
+
+First of all, before anything some thing came to my mind about the blog:
++ **authentic**:  It needs to looks like one of my creations (carrier my authorial mark);
++ **easy maintenance**: I don't want to have headaches because of it later; 
++ **fun**: I need to have fun both developing and writing on it.
+
+In this way, the whole design decisions where made on top of these things. To achieve these goals I stipulated the following requirements:
+
++ Use some *clean-look* markup language;
++ Command-line based workflow both for writing and developing;
++ Use my Neovim to write posts ( **NO IDEs other than mine** );
++ Use Nix to manage dependencies and development environment;
++ Use only Open Source Software as dependencies and as development tools (No proprietary frameworks, libraries and themes).
+
+The idea of using an *clean-look* markup language was mostly for ensuring close similarity with the content on my default editor and the final result...
+
+### Technologies
+
++ **Markup language**: Markdown
++ **Site framework**: Hugo
++ **Neovim plugins**: vim-pencil, vim-markdown
++ **CSS Theme**: Blowfish
++ **Package Manager**: Nix
 ## My current workflow
