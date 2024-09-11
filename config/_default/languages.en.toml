@@ -8,7 +8,8 @@ image = "img/author.jpg"
 headline = "ChatGPT, write a good headline for my blog."
 bio = "Undergrad Computer Engineer passionated for open tecnologies and currently researching control theory applied to robotics."
 links = [
-  { github = "https://github.com/CarlosCraveiro" }
+  { github = "https://github.com/CarlosCraveiro" },
+  { linkedin = "https://www.linkedin.com/in/carloscraveiro/" }
 ]
 email = "carlos.craveiro@usp.br"
 
