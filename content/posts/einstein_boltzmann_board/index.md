@@ -8,11 +8,16 @@ tags: ["open hardware", "physics experiments", "personal projects"]
 
 {{< katex >}}
 
-After a big hiatus after my first post, finally some content to this empty
-blog. As the second post in this blog, I'll talk about a project that
-I was working on since January, the **Einstein-Boltzmann Board**!
+After a big hiatus since my first post, it's finally time to add new
+content to this empty blog. In this second post, I'll introduce the
+project I've be working on since January: the **Einstein-Boltzmann
+Board**.
 
-## What is the board
+
+TODO: Continue from here:....
+
+
+ ## What is the board
 
 This is a board to replicate the experiment of the [5-th Experimental
 Physics Olympiad (2017)](https://arxiv.org/abs/1801.00022). Which the
@@ -38,10 +43,16 @@ parallel with a Capacitance), the noisy source is the resistor and the
 noise that we are talking about is known as [Johnson–Nyquist
 noise](https://en.wikipedia.org/wiki/Johnson%E2%80%93Nyquist_noise).
 
-As we are working with white noise, a random or stochastic process with
-zero mean, we need to work with it's Power Spectral Density, or just
-[PSD](https://www.geeksforgeeks.org/power-spectral-density/), with that in
-mind, its known that Johnson–Nyquist noise has a nearly a constant PSD:
+
+If you are not so interested in the physics or electronics derivation you
+can jump for the **Simplified Explanation** in the end of this section
+just to have at least a very abstract notion about what this board does.
+
+Continuing, as we are working with white noise, a random or stochastic
+process with zero mean, we need to work with it's Power Spectral Density,
+or just [PSD](https://www.geeksforgeeks.org/power-spectral-density/), with
+that in mind, its known that Johnson–Nyquist noise has a nearly a constant
+PSD:
 
 $$S_{res}(f) = 4k_B T R$$
 
@@ -93,20 +104,90 @@ $$ H(f) = \frac{1}{1 + j 2 \pi f R C}.$$
 In this, case we also know the relation between Input and Output PSD of
 LTI a System, our LPF, which is given by:
 
-$$ S_{out}(f) = |H(f)|^2 * S_{in}(f)$$
+$$ S_{out}(f) = |H(f)|^2 \cdot S_{in}(f)$$
 
-Important to notice that this asterisk \\( * \\) **is not
-a multiplication**! This is a [convolution operation](https://en.wikipedia.org/wiki/Convolution).
+So, considering \\(S_{res}(f)\\) as the input of the LPF, we can say that
+the output of this system is:
 
-TODO: Missing rest of the derivation!!!
+$$ S_{o}(f) = \Big|\frac{1}{1 + j2\pi fRC}\Big|\cdot 2k_BTR = \frac{2k_BTR}{1+ 4 \pi^2 f^2 R^2 C^2} $$
 
-Briefly explaining what it does, basically you have like an amplifier
-stage done by an instrumental amplifier that increases the noise (that in
-this case is our signal) by a million times and them square the signal and
-them take the average. More information you can find in the original
-article and I'll try to write a Wiki for the project at GitHub with
-a "complete tour" of the board with the simulation of each stage. But this
-is part of future work.
+And with this result, we can take the property that the mean square
+voltage \\((\overline{v_o^2})\\) of a signal with PSD described by
+\\(S_o(f)\\) is given by:
+
+$$ \overline{v_o^2} = \int_{-\infty}^{+\infty}{S_o(f)df} $$
+
+, so in our case:
+
+$$\overline{v_o^2}=\int_{-\infty}^{+\infty}{\frac{2k_BTR}{1+4\pi^2f^2R^2C^2}df}=\frac{k_BT}{C}$$
+
+And ta-da! We have that the mean square of our noise is a known value that
+not depends on the frequency, with limited and low bandwidth
+\\((RC)^{-1}\\) of about tens of kilohertz in our case. And most
+important, only depends on the Boltzmann constant (\\(k_B\\)), the
+temperature (\\(T\\)) and the capacitance (\\(C\\)). So in theory if we
+know accurately the value of a certain group of capacitances (\\(C_n\\)),
+and measure both the temperature in which the experiment will be performed
+and the mean square voltage on the terminals `(a)` and `(b)` (diagram 2),
+we can actually determine the Boltzmann constant by plotting the following
+linear relation:
+
+$$\overbrace{\frac{\overline{v_o^2}}{T}}^y=k_B\overbrace{\frac{1}{C}}^x$$
+
+
+Our only problem is that actually if you make some napkin calculations,
+you notice that this value is actually way too small to be measured by any
+normal equipment like a multimeter, actually in the order of magnitude of
+*atto volts* (\\(10^{-14}\\)).
+
+To solve this problem, the solution is actually not to complicated. We
+just need to amplify the signal, but not for like thousands of billion
+times, we can actually amplify the signal before square meaning it by
+a million times and then this will give us the equivalent amplification by
+"thousands of billions". And this is exactly what the circuit proposed for
+the 5-th EPO does, it uses a very famous and widely known circuit
+topology, the [Instrumentation
+Amplifier](https://en.wikipedia.org/wiki/Instrumentation_amplifier), but
+with some modifications like a bandpass filter inside-it planned to
+capture only the noise that we want to measure and instead of using
+a non-inverting amplifier, it uses two inverting amplifiers
+(configurations of [operational amplifiers
+(OP-AMPS)](https://en.wikipedia.org/wiki/Operational_amplifier)) to
+achieve the same result, but with more gain. Also important to point out,
+they used ( **ADA4898** ) low-noise OP-AMPS to build this instrumental
+amplifier, which I choose to do the same for the sake of reproducibility.
+
+And at the end it uses a voltage multiplier an **AD633** to take the
+square voltage and a final LPF that "cuts off" higher frequencies and let
+in the end a comparable very slow signal that is averaged by the
+multimeter.
+
+### Simplified Explanation
+
+Basically you have a signal source given by
+
+Amplify it by a million times, using what is known as [Instrumentation
+Amplifier](https://en.wikipedia.org/wiki/Instrumentation_amplifier), them
+square the signal using an **AD633** and in the end take the average. And
+with this by plotting:
+
+$$\overbrace{\frac{\overline{(v_o\cdot{G_{Instr}})^2}G_{square}}{T}}^y=k_B\overbrace{\frac{1}{C}}^x$$
+
+it is possible to find the Boltzmann constant (\\(k_B\\)). Where,\\(C_n\\)
+is a certain capacitance in Farads, (\\(T\\)) is the Temperature in
+Kelvin, \\(G_{Instr}\\) is the gain of the instrumentation amplifier and
+\\(G_{square}\\) is the gain of the **AD633** circuit.
+
+I tried to give you the general overview of the circuit, but for more
+information you can find in the original guide for the EPO-5th or their [other article](https://iopscience.iop.org/article/10.1088/1361-6404/ab07e0) and I'll try to write a Wiki for the project at
+GitHub with a "complete tour" of the board with the simulation of each
+stage. But this is part of future work. Other important things to point
+out, first that I only found their "other article" when I was searching
+references for this post, so I really recommend for you to take a look
+because their explanation is way more complete than mine. I did not
+account for example the frequency dependent amplification witch actually
+implies a correction factor \\( \epsilon \\) to the measurements. (This
+can be seen at the results I got - without the correction factor)
 
 ![board_turned_on](feature_board_turned_on.jpg)
 
@@ -210,8 +291,11 @@ printed cases.
 
 Finish designing the wooden support I idealized for the board.
 
-Improve the simulation to be able to easily modify and maybe reduce the
-manufacturing costs.
+Derive myself the frequency dependent gain of the instrumentation
+amplifier and improve the script to account for it.
+
+Understand better the phenomena electronically to improve the simulation
+to be able to easily modify and maybe reduce the manufacturing costs.
 
 Improve the project's github repo documentation.
 
@@ -220,6 +304,10 @@ electrical design (integrate KiCAD and FreeCAD), maybe this is a good
 topic for another future post. Together with a post about the actual
 research project for what I work on about landing quad-rotors on
 oscillating platforms...
+
+Create a new version of the board with what would be possible to determine
+the [electron charge](https://arxiv.org/abs/1703.05224) and the [absolute
+zero](https://arxiv.org/abs/2205.06609)
 
 ## Final things and special thanks
 
@@ -234,8 +322,6 @@ experiments would be a lot harder than it was.
 
 And of course, thanks my friend Me. Edney Melo for the idea of following
 this project.
-
-Cite [paper at IOP](https://iopscience.iop.org/article/10.1088/1361-6404/ab07e0)
 
 Writing this post I found a paper from the same authors that basically
 powers up the experiment (I'll definitely check out). I'll try to contact
