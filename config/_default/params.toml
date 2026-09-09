@@ -1,6 +1,6 @@
 # config/_default/params.toml
 
-colorScheme = "fire"
+colorScheme = "blowfish"
 defaultAppearance = "dark"
 
 enableSearch = true

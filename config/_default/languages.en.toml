@@ -1,15 +1,17 @@
 # config/_default/languages.en.toml
 
-title = "Carlos Craveiro Blog"
+title = "Carlos Craveiro Personal Page"
 
 [author]
 name = "Carlos Henrique Craveiro Aquino Veras"
 image = "img/author.jpg"
-headline = "ChatGPT, write a good headline for my blog."
-bio = "Undergrad Computer Engineer passionated for open tecnologies and currently researching control theory applied to robotics."
+headline = "Robotics Researcher | M.Sc. Candidate at USP | UAVs & State Estimation"
+bio = "M.Sc. Candidate in Aeronautics Engineering at USP and researcher at CRob. My work focuses on the intersection of Theoretical Robotics, State Estimation, and Embedded Systems, particularly applied to Unmanned Aerial Vehicles (UAVs)."
 links = [
   { github = "https://github.com/CarlosCraveiro" },
-  { linkedin = "https://www.linkedin.com/in/carloscraveiro/" }
+  { linkedin = "https://www.linkedin.com/in/carloscraveiro/" },
+  { link = "http://lattes.cnpq.br/4263198323019177" },
+  { orcid = "https://orcid.org/0009-0001-2212-8860"}
 ]
 email = "carlos.craveiro@usp.br"
 
